@@ -1,0 +1,5 @@
+export const getPage = async(uri) => {
+	const params = {
+		query
+	}
+}

@@ -1,0 +1,24 @@
+import { Poppins, Aboreto } from "next/font/google";
+import "../styles/globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+  weight: ["400", "700"],
+});
+
+const aboreto = Aboreto({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-aboreto",
+  weight: ["400"],
+});
+
+export default asfunction RootLayout({ children }) {
+  return (
+    <html lang="en" className={`${poppins.variable} ${aboreto.variable}`}>
+      <body className="font-body">{children}</body>
+    </html>
+  );
+}

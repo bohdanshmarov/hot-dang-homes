@@ -1,0 +1,70 @@
+export const getPage = async (uri) => {
+  const params = {
+    query: `
+      query PageQuery($uri: String!) {
+        nodeByUri(uri: $uri) {
+          ... on Page {
+            id
+            title
+            blocks(postTemplate: false)
+            seo {
+              title
+              metaDesc
+            }
+          }
+
+          ... on Property {
+            id
+            title
+            blocks(postTemplate: false)
+          }
+        }
+        acfOptionsMainMenu {
+          mainMenu {
+            callToActionButton {
+              label
+              destination {
+                ... on Page {
+                  uri
+                }
+              }
+            }
+            menuItems {
+              menuItem {
+                label
+                destination {
+                  ... on Page {
+                    uri
+                  }
+                }
+              }
+              items {
+                label
+                destination {
+                  ... on Page {
+                    uri
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: { uri },
+  };
+
+  const response = await fetch(process.env.WP_IMAGE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Добавляем авторизацию, если это WP API
+      Authorization: `Basic ${Buffer.from(process.env.WP_USERNAME + ":" + process.env.WP_APP_PASSWORD).toString("base64")}`,
+    },
+    body: JSON.stringify({
+      prompt:
+        "Beautiful ukrainian vyshyvanka, variable fonts style, high resolution", // Пример данных
+      size: "1024x1024",
+    }),
+  });
+};
